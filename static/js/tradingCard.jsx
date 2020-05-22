@@ -39,10 +39,33 @@ class TradingCard extends React.Component {
 }
 
 class TradingCardContainer extends React.Component {
+  constructor() {
+    super();
+
+    this.state = { cards: [] }; // Set initial value
+    this.updateCards = this.updateCards.bind(this);
+  }
+
+  updateCards() {
+    const floatCard = {
+      name: 'Float',
+      skill: 'baking pretzels',
+      imgUrl: '/static/img/float.jpg',
+    };
+
+    this.setState({
+      cards: [floatCard]
+    });
+  }
+
+  componentDidMount() {
+    this.updateCards();
+  }
+
   render() {
     const tradingCards = [];
 
-    for (const currentCard of tradingCardData) {
+    for (const currentCard of this.state.cards) {
       tradingCards.push(
         <TradingCard
           key={currentCard.name}
@@ -54,7 +77,7 @@ class TradingCardContainer extends React.Component {
     }
 
     return (
-      <div id="container">{tradingCards}</div>
+      <div>{tradingCards}</div>
     );
   }
 }
